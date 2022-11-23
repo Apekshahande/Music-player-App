@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="main_div">
+        <div class="music_container">
+            <h2 id ="title">LOTUS LANE</h2>
+            <h3 id = "artist">The Loyalist</h3>
+            <div class="img_container ">
+                <img src ="./images/img1.jpg"  alt ="">
+            </div>
+            <audio src ="./musics/song-1.mp4"  ></audio>
+            <!-- <audio src ="musics/song2.mp4" controls></audio>
+            <audio src ="musics/song3.mp4" controls></audio>
+            <audio src ="musics/song4.mp4" controls></audio> -->
+
+            <!-- Controls -->
+            <div class="music_controls">
+                <i class="fas fa-backward" id ="prev" title="Previous"></i>
+                <i class="fas fa-play main_button" id="play"  title="Play" ></i>
+                <i class="fas fa-forward" id="next" title="Next"></i>
+                <!-- font awasome used -->
+
+            </div>
+        </div>
+    </div>
+    <script>
+        const music = document.querySelector("audio")
+        const img = document.querySelector("img");
+        const play = document.getElementById("play");
+        const artist = document.getElementById("artist");
+        const title = document.getElementById("title");
+        const prev = document.getElementById("prev");
+        const next= document.getElementById("next");
+
+        // array of an object
+        const songs = [
+            {
+                name:"song-1", 
+                // name of the song
+                title:"Har jit he lapandave",
+                artist:"",
+                img: "img1"
+    
+            },
+            {
+                name:"song2",
+                title:"Raat Mujhe Kyun",
+                artist:"ARIJIT SINGH",
+                img: "img2"
+    
+            },
+            {
+                name:"song3",
+                title:"Chak Dhoom ",
+                artist:"Lata Mangeshkar",
+                img: "img3"
+        
+            },
+            {
+                name:"song4", 
+                // name of the song
+                title:"Ye Dua Hai ",
+                artist:"Kumar Sanu",
+                img: "img4"
+    
+            },
+            {
+                name:"song5", 
+                // name of the song
+                title:"Samindarachi Lat",
+                artist:"Preet Bindre",
+                img: "img5"
+    
+            },
+            {
+                name:"song6", 
+                // name of the song
+                title:"Dewak Kalaji Re",
+                artist:"Ajay Gogavale",
+                img: "img6"
+    
+            },
+        ]
+
+        let isPlaying = false;
+        const playMusic= () => {
+            isPlaying = true;
+            music.play();
+            play.classList.replace("fa-play", "fa-pause");
+            img.classList.add("anime");
+        }
+
+        // for pause function
+        const pauseMusic = ()=>{
+            isPlaying = false;
+            music.pause();
+            play.classList.replace("fa-pause", "fa-play");
+            img.classList.remove("anime");
+            // The classList property returns the CSS classnames of an element.
+        }
+
+        play.addEventListener('click',()=>{
+            isPlaying?pauseMusic():playMusic();
+            
+        });
+        // Changing the data 
+        
+        const loadSong= (songs)=>{
+            title.textContent = songs.title;
+            artist.textContent = songs.artist;
+            music.src = "musics/" + songs.name + ".mp4";
+
+            img.src = "images/"+ songs.img +".jpg";
+
+
+        }
+        
+        
+        songIndex = 0;
+        const nextSong =()=>{
+            songIndex = (songIndex+1)%songs.length;
+            loadSong(songs[songIndex]);
+            playMusic()
+
+        }
+        const prevSong =()=>{
+            songIndex = (songIndex - 1 + songs.length)% songs.length;
+            loadSong(songs[songIndex]);
+            playMusic()
+
+        }
+
+        next.addEventListener('click',nextSong);
+        prev.addEventListener('click',prevSong)
+
+ 
+    </script>
+    
+    
+</body>
+</html>
